@@ -1,0 +1,42 @@
+from manim import *
+
+class Sistema2D(Scene):
+    def construct(self):
+        # Crear el plano cartesiano
+        plano = NumberPlane(
+            x_range=[-5, 5, 1],
+            y_range=[-3, 3, 1],
+            background_line_style={
+                "stroke_color": TEAL,
+                "stroke_width": 2,
+                "stroke_opacity": 0.3
+            }
+        )
+        
+        # Añadir etiquetas a los ejes
+        etiquetas = plano.get_axis_labels(x_label="x", y_label="y")
+        
+        # Animación
+        self.play(Create(plano), Write(etiquetas))
+        self.wait(2)
+
+class Sistema3D(ThreeDScene):
+    def construct(self):
+        # Crear los ejes 3D
+        ejes = ThreeDAxes()
+        
+        # Etiquetas para 3D
+        etiquetas = ejes.get_axis_labels(
+            x_label="x", 
+            y_label="y", 
+            z_label="z"
+        )
+
+        # Configurar la orientación de la cámara
+        self.set_camera_orientation(phi=75 * DEGREES, theta=-45 * DEGREES)
+        
+        # Animación
+        self.add(ejes, etiquetas)
+        self.begin_ambient_camera_rotation(rate=0.1) # Rotación lenta
+        self.wait(5)
+        self.stop_ambient_camera_rotation()
